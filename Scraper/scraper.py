@@ -68,4 +68,3 @@ def run_scraper(urls: list[str], depth: int, output_dir: str, max_concurrent: in
     print(f"Starting scraper: depth={depth}, max_pages={max_pages}, urls={len(urls)}")
     asyncio.run(scrape_recursive(urls, output_dir, semaphore, timeout_ms, depth, seen, saved_files, file_counter, max_pages))
     return saved_files
-s

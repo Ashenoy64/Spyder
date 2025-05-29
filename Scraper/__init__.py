@@ -1,5 +1,5 @@
 from Utils import Config
-from .scraper import __scraper
+from .scraper import run_scraper
 from .cleanup import __clean_and_normalize_html_files
 
 
@@ -15,13 +15,13 @@ def scraper( urls: list[str] , depth : int, config:Config ):
     Returns:
         list[str]: List of file paths where the scraped content is saved.
     """
-    return __scraper(
+    return run_scraper(
         urls=urls,
         depth=depth,
-        outputDir=config.scrapedDir,
-        maxConcurrentBrowsers=config.maxConcurrentBrowsers,
-        timeoutMs=config.timeoutMs,
-        maxPages=config.pageLimit,
+        output_dir=config.scrapedDir,
+        max_concurrent=config.maxConcurrentBrowsers,
+        timeout_ms=config.timeoutMs,
+        max_pages=config.pageLimit,
     )
 
 

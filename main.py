@@ -26,13 +26,11 @@ def main( urls: list[str] = [], depth: int = 2, schema : list[dict] = [] ):
     config = setup_config()
 
     # Scrape the URLs with a depth of 2
-    scraped_files = scraper(urls, depth=2, config=config)
+    scraped_files = scraper(urls, depth=depth, config=config)
     clean_and_normalize_html_files(scraped_files, config)
 
-    
-    print(f"Scraped files: {scraped_files}")
 if __name__ == "__main__":
     urls=[
         'https://www.flipkart.com/mobiles/nothing~brand/pr?sid=tyy,4io'
     ]
-    main(urls, depth=1)
+    main(urls, depth=2)
