@@ -18,10 +18,10 @@ def scraper( urls: list[str] , depth : int, config:Config ):
     return run_scraper(
         urls=urls,
         depth=depth,
-        output_dir=config.scrapedDir,
-        max_concurrent=config.maxConcurrentBrowsers,
-        timeout_ms=config.timeoutMs,
-        max_pages=config.pageLimit,
+        output_dir=config.scraper['scrapedDir'],
+        max_concurrent=config.scraper['maxConcurrentBrowsers'],
+        timeout_ms=config.scraper['timeoutMs'],
+        max_pages=config.scraper['pageLimit'],
     )
 
 
