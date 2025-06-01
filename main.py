@@ -5,7 +5,8 @@ from AI import set_auto_complete
 
 from Scraper import scraper, clean_and_normalize_html_files
 from DataExtractor import extract_data_from_html
-def setup_config():
+
+def setup_config( Settings ):
     """
     Sets up the configuration for the scraper.
     
@@ -40,40 +41,23 @@ def setup_ai( config ):
     else:
         set_auto_complete( get_groq_autocompletion(config.ai['apiKey'], config.ai['model']) )
 
-def main( urls: list[str] = [], depth: int = 2, schema : list[dict] = [] ):
+
+def main( urls: list[str] = [], depth: int = 2, schemas : list[str] = [] ):
     """
     Main function to run the scraper with default settings.
     """
-    config = setup_config()
+    config = setup_config( Settings )
     setup_ai( config )
     # Scrape the URLs with a depth of 2
-    # scraped_files = scraper(urls, depth=depth, config=config)
-    # clean_and_normalize_html_files(scraped_files, config)
-    files = [
-        r'.temp\scraped_pages\page_0.html'
-    ]
-    schemas = [
-        """ [
-        {
-            "name": "string - Name of the product",
-            "price": "string - Price of the product (e.g., ₹29,999 or USD 399)",
-            "rating": "string or float - Average star rating (e.g., 4.2)",
-            "rating_count": "integer - Total number of people who rated the product",
-            "review_count": "integer - Number of textual reviews available",
-            "ram": "string - RAM details (e.g., 8GB)",
-            "storage": "string - Storage details (e.g., 128GB)",
-            "camera": "string - Camera specifications (e.g., 50MP dual rear, 16MP front)",
-            "battery": "string - Battery details (e.g., 4500mAh with fast charging)",
-        }
-    ]
-""",
-    ]
-    csv = extract_data_from_html(files, schemas, config)
-    print(csv)
+    scraped_files = scraper(urls, depth=depth, config=config)
+    clean_and_normalize_html_files(scraped_files, config)
+    csv = extract_data_from_html(scraped_files, schemas, config)
+    if not csv:
+        print("No data extracted. Please check the schemas and URLs.")
+        return []
+    print("Data extraction complete. CSV files generated.")
+    return csv
 
 
 if __name__ == "__main__":
-    urls=[
-        'https://www.flipkart.com/mobiles/nothing~brand/pr?sid=tyy,4io'
-    ]
-    main(urls, depth=2)
+    pass

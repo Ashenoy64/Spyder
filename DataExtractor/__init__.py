@@ -73,6 +73,7 @@ def write_to_csv(schemas: list[str], schema_data: dict, config: Config):
                     indent=2
                 )
             print(f"Failed  schema at index {idx}. Data  written to {data_path}")
+            csv_files.append("")
             continue
         
         for json_object_list in data_list:
